@@ -1,5 +1,6 @@
 local STI = require("sti")
 require("player")
+love.graphics.setDefaultFilter("nearest", "nearest")
 
 function love.load()
   Map = STI("map/1.lua", {"box2d"})
@@ -10,7 +11,7 @@ function love.load()
   Map:box2d_init(World)
   Map.layers.solid.visible = false
 
-  background = love.graphics.newImage("assests/background.png")
+  background = love.graphics.newImage("assets/background.png")
   Player:load()
 end
 
@@ -32,6 +33,10 @@ end
 
 function love.keypressed(key)
   Player:jump(key)
+
+  if key == "escape" then
+    love.event.quit()
+  end
 end
 
 function beginContact(a, b, collision)
