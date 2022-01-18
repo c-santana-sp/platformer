@@ -20,7 +20,7 @@ return {
       spacing = 0,
       margin = 0,
       columns = 14,
-      image = "../assests/tiles.png",
+      image = "../assets/tiles.png",
       imagewidth = 224,
       imageheight = 64,
       objectalignment = "unspecified",

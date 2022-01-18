@@ -10,11 +10,14 @@ function Player:load()
   self.maxSpeed = 200
   self.acceleration = 4000
   self.jumpAmount = -500
-  self.doubleJumpAvailable = false
   self.friction = 3500
   self.gravity = 1500
 
+  self.graceTime = 0
+  self.graceDuration = 0.1
+
   self.grounded = false
+  self.doubleJumpAvailable = false
   self.direction = "right"
   self.state = "idle"
 
@@ -55,6 +58,7 @@ function Player:update(dt)
   self:setState()
   self:setDirection()
   self:animate(dt)
+  self:decreaseGraceTime(dt)
   self:syncPhysics()
   self:move(dt)
   self:applyGravity(dt)
@@ -76,7 +80,7 @@ function Player:setNextSpriteFrame()
   else
     sprite.current = 1
   end
-  print(sprite.current)
+  -- print(sprite.current)
   self.animation.draw = sprite.sprites[sprite.current]
 end
 
@@ -104,6 +108,12 @@ end
 function Player:syncPhysics()
   self.x, self.y = self.physics.body:getPosition()
   self.physics.body:setLinearVelocity(self.xVel, self.yVel)
+end
+
+function Player:decreaseGraceTime(dt)
+  if not self.grounded then
+    self.graceTime = self.graceTime - dt
+  end
 end
 
 function Player:move(dt)
@@ -135,6 +145,7 @@ function Player:jump(key)
       self.yVel = self.jumpAmount
       self.grounded = false
       self.doubleJumpAvailable = true
+      self.graceTime = 0
       -- print("double jump")
     elseif not self.grounded and self.doubleJumpAvailable then
       self.yVel = self.jumpAmount * 0.8
@@ -170,6 +181,7 @@ function Player:land(collision)
   self.currentGroundCollision = collision
   self.yVel = 0
   self.grounded = true
+  self.graceTime = self.graceDuration
   self.doubleJumpAvailable = false
 end
 

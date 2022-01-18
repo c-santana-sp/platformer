@@ -1,5 +1,6 @@
 local STI = require("sti")
 require("player")
+local Camera = require("camera")
 love.graphics.setDefaultFilter("nearest", "nearest")
 
 function love.load()
@@ -18,15 +19,19 @@ end
 function love.update(dt)
   World:update(dt)
   Player:update(dt)
+
+  Camera:setPosition(Player.x, Player.y )
 end
 
 function love.draw()
   love.graphics.draw(background)
-  Map:draw(0, 0, 2, 2)
+  Map:draw(-Camera.x, -Camera.y, Camera.scale, Camera.scale)
   love.graphics.push()
   love.graphics.scale(2, 2)
 
+  Camera:apply()
   Player:draw()
+  Camera:clear()
 
   love.graphics.pop()
 end
