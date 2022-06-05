@@ -33,20 +33,20 @@ function Player:loadAssests()
 
   self.animation.run = { total = 6, current = 1, sprites = {} }
   for i = 1, self.animation.run.total do
-    self.animation.run.sprites[i] = love.graphics.newImage("assets/player/run/" ..i.. ".png")
+    self.animation.run.sprites[i] = love.graphics.newImage("assests/player/run/" ..i.. ".png")
   end
 
   self.animation.idle = { total = 4, current = 1, sprites = {} }
   for i = 1, self.animation.idle.total do
-    self.animation.idle.sprites[i] = love.graphics.newImage("assets/player/idle/" ..i.. ".png")
+    self.animation.idle.sprites[i] = love.graphics.newImage("assests/player/idle/" ..i.. ".png")
   end
 
   self.animation.air = { total = 4, current = 1, sprites = {} }
   for i = 1, self.animation.air.total do
-    self.animation.air.sprites[i] = love.graphics.newImage("assets/player/air/" ..i.. ".png")
+    self.animation.air.sprites[i] = love.graphics.newImage("assests/player/air/" ..i.. ".png")
   end
 
-  self.animation.draw = love.graphics.newImage("assets/player/idle/1.png")
+  self.animation.draw = love.graphics.newImage("assests/player/idle/1.png")
   self.animation.width = self.animation.draw:getWidth()
   self.animation.height = self.animation.draw:getHeight()
 end
